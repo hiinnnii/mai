@@ -16,6 +16,6 @@ Spyder (로컬) Vscode (서버) 사용
 |pandas|1.5.3|
 |Numpy|1.25.2|
 |Torch|2.2.1+cu121|
-|Transformers| |4.38.2|
-|Sklearn| |1.2.2|
+|Transformers|4.38.2|
+|Sklearn|1.2.2|
 
