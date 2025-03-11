@@ -19,3 +19,9 @@ Spyder (로컬) Vscode (서버) 사용
 |Transformers|4.38.2|
 |Sklearn|1.2.2|
 
+라이브러리 import, seed rhwjd : Private Score 재현을 위해 가능한 많은 seed 고정
+
+## 데이터 셋
+https://dacon.io/competitions/official/236253/data
+- Train Set
+  - 55438개의 학습 가능한 32kHz 로 샘플링 된 오디오(ogg) 샘플
