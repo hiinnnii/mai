@@ -25,3 +25,46 @@ Spyder (로컬) Vscode (서버) 사용
 https://dacon.io/competitions/official/236253/data
 - Train Set
   - 55438개의 학습 가능한 32kHz 로 샘플링 된 오디오(ogg) 샘플
+  - 방음 환경에서 녹음된 진짜 사람 목소리 샘플과 방음 환경을 가정한 가짜 생성 목소리 (Fake)샘플
+  - 각 샘플 당 한명의 진짜 혹은 가짜 목소리가 존재
+- Test Set
+  - 50000개의 5초 분량의 32kHz로 샘플링 된 평가용 오디오(ogg)샘플
+  - TEST_00000.ogg ~ TEST_49999.ogg
+  - 방음 환경 혹은 방음 환경이 아닌 환경 모두 존재하며, 각 샘플 당 최대 2명의 목소리(진짜 혹은 가짜)가 존재
+- Unlabeled_data
+  - 1264개의 5초 분량의 학습 가능한 32kHz 로 샘플링 된 Unlabeled 오디오(ogg) 샘플
+  - 평가용 오디오(ogg) 샘플과 동일한 환경이지만 Label은 제공되지 않음
+
+### Train/Valid Dataset Split
+train code로 생성한 dataframe(df) 8:2로 분리
+분리한 df에서 각 real files 와ㅏ fake files의 존재 확률을 모두 인덱싱해 새로운 df 생성
+
+Train Data : 40,000
+Valid Data : 10,000
+
+### Test Noise 제거
+Noise가 포함된 Test Data를 DeepFilterNEt(V3)을 이용하여 Noise 제거
+https://github.com/Rikorose/DeepFilterNet
+![Dacon+SW중심대학+그림1](https://github.com/user-attachments/assets/67de962f-d831-4b62-892e-370af23226a8)
+
+깃허브 사이트에서 제공한 가중치를 사용하여 노이즈 제거 (추가적인 DeepFilterNet 학습 x)
+
+### 데이터 전처리
+Data Mixup
+|이름|버전|
+|------|---|
+|R 1|[0,1]|
+|F 1|[1,0]|
+|R 1 & F 1|[1,1]|
+|R 2|[0,1]|
+|F 2|[1,0]|
+|0|[0,0]|
+|0(Gaussian filter 적용)|[0,0]|
+
+데이터 증강 : add noise, time mask
+데이터 class의 믹스업을 random.choice에 인덱싱으로 빠짐없이 처리
+
+![Dacon+SW중심대학+그림2](https://github.com/user-attachments/assets/9c33a222-ff4a-44a1-8d74-e047ae8f0686)
+
+
+## 모델링
