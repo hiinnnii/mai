@@ -11,10 +11,11 @@ Spyder (로컬) Vscode (서버) 사용
 - 로컬 : RTX 3070ti 12GB -> model complexity 고려하여 VRam 8GB 이상 필요
 - 라이브러리 설치 및 버전 확인
 
+|이름|버전|
+|------|---|
+|pandas|1.5.3|
+|Numpy|1.25.2|
+|Torch|2.2.1+cu121|
+|Transformers| |4.38.2|
+|Sklearn| |1.2.2|
 
-  |:---:||:---:|
-  |pandas| |1.5.3|
-  |Numpy| |1.25.2|
-  |Torch| |2.2.1+cu121|
-  |Transformers| |4.38.2|
-  |Sklearn| |1.2.2|
