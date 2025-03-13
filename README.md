@@ -1,5 +1,6 @@
 # SW중심대학 디지털 경진대회_SW와 생성AI의 만남 : AI 부문
 
+팀원 | 윤태웅, 이소향, 우건희, 윤수영, 박혜인
 ## 문제 인식
 안녕하세요. 지난 SW 중심 대학 디지털 경진대회 AI 부문의 주제는 생성 AI의 가짜(Fake) 음성 검출 및 탐지 입니다. 평가 지표는 AUC, Brier, ECE로 구성되어있습니다. 고려할 점은 아래와 같습니다.
 - 음성 분류 : 공식적인 문서로 확인한 데이터는 [1,1][1,0][0,1][0,0]로 구분되어있다. 
@@ -64,7 +65,40 @@ Data Mixup
 데이터 증강 : add noise, time mask
 데이터 class의 믹스업을 random.choice에 인덱싱으로 빠짐없이 처리
 
-![Dacon+SW중심대학+그림2](https://github.com/user-attachments/assets/9c33a222-ff4a-44a1-8d74-e047ae8f0686)
-
+Custom Dataset (train, val) / Custom Test Dataset (test) Test는 다른 데이터셋 형식 적용
 
 ## 모델링
+### 전처리 (데이터 증강)
+add_noise : random.random() 사용해서 랜덤하게 조건에 맞으면 노이즈 추가
+Time mask 추가 : random.random() 사용해서 조건에 만족하면 X축 time(s)축 제거
+
+<img width="876" alt="image" src="https://github.com/user-attachments/assets/39d4a737-3258-4d4b-9217-ac92f0d1e43d" />
+
+### CNNLSTMDeep Model 설계
+<img width="646" alt="image" src="https://github.com/user-attachments/assets/f9d94b17-4a1f-47e2-9050-8be4890db3f5" />
+
+### CNNLSTMwithBatchNorm Model 설계
+<img width="646" alt="image" src="https://github.com/user-attachments/assets/66b09dcc-0ca6-4df1-8691-0c8037f1dc63" />
+
+### Abalation Study
+<img width="646" alt="image" src="https://github.com/user-attachments/assets/5d76e009-01fe-4d7f-b172-92b6d939f3cd" />
+
+### Experiment
+제출할 모든 csv 파일에 sigmoid(k=1) 적용
+
+# 결과
+
+Private Score = 0.5 x (1-AUC) + 0.25 x Brier + 0.25 x ECE
+Model 1 = 0.2121
+Model 2 = 0.2084
+최종 Ensemble 모델 0.2054
+
+# 적용분야
+- 딥페이크를 탐지하고 방어할 수 있는 기술을 개발
+- 딥페이크 탐지 알고리즘으로 허위 콘텐츠를 신속하게 식별 가능
+
+# 대회 하면서 느낀 점 
+
+
+
+
